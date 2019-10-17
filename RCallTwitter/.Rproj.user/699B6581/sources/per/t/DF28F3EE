@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571131042671.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1532317204",
+    "id" : "DF28F3EE",
+    "lastKnownWriteTime" : 1571132598,
+    "last_content_update" : 1571132598378,
+    "path" : "D:/MyProjects/Sources/12. SNS Develop/GitHub/RCallTwitter/sources/FileAndFolder.R",
+    "project_path" : "sources/FileAndFolder.R",
+    "properties" : {
+        "cursorPosition" : "3,44",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
