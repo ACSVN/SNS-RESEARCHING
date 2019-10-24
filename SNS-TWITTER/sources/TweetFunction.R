@@ -16,10 +16,10 @@ library(stringr)
 ##
 func_setPremiumAccount <- function(){
   appname <- "ADDIXCS-Twitter"
-  consumer_key <- ""
-  consumer_secret <-""
-  access_token <- ""
-  access_secret <- ""
+  consumer_key <- "3a1N6xOBowUuF3ZWlErboyGLo"
+  consumer_secret <-"sZLiof7XdT8BY3HixQWpp2TQm737VKJcvdxQDovVZPH9Fmw9SB"
+  access_token <- "1181201713602027522-bpCt556WTeMhsYCwGLLlATHJbhdpvI"
+  access_secret <- "UljO4r6L9T22yxKIrDfVB35lNr7wJCXuAu49Noe1b3n5s"
   
   twitter_token <- create_token(app = appname,
                                 consumer_key = consumer_key,
