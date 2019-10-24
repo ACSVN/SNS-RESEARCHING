@@ -15,7 +15,7 @@ timeout /t 35 /nobreak >nul
 taskkill /F /IM chrome.exe /T
 
 rem ===== Insert Twitter-Account TopImage to "output/Twitter-PPT.pptx" =====
-"C:\Program Files\R\R-3.6.1\bin\rscript.exe" %THIS_PATH%\insertimg1.r %1 %2
+"C:\Program Files\R\R-3.6.1\bin\rscript.exe" %THIS_PATH%\insertimg2.r %1 %2
 
 rem ===== Run MainProject created by R =====
 "C:\Program Files\R\R-3.6.1\bin\rscript.exe" %THIS_PATH%\sources\MainProgram.R %1 %2
