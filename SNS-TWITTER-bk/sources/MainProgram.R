@@ -8,7 +8,7 @@
 # install_github("omegahat/RDCOMClient")
 # install.packages("jjb")
 ## --------------------- set work directory
-setwd("C:/Users/rsawa/OneDrive/デスクトップ/191023作業/SNS-TWITTER/sources")
+setwd("C:/SNS-TWITTER")
 getwd()
 # ------------------------------------------------------- #
 source("./sources/TweetFunction.R")
