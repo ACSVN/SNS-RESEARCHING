@@ -96,7 +96,8 @@ func_getTokenAccount <- function(tokenName){
 func_getUserTweet_30Days_premium <- function(username, numberRecord){
   infoSearch = str_c("from:", username)
   
-  gmtDate <- as.POSIXlt(Sys.time(), "GMT") # the current time in UTC
+  # gmtDate <- as.POSIXlt(Sys.time(), "GMT") # the current time in UTC
+  gmtDate <- as.POSIXlt(Sys.time(), tz="Japan") # the current time in JST
   todate <- format(gmtDate, "%Y%m%d%H%M")
   
   no = as.numeric(substr(todate, 11, 12)) - 1
