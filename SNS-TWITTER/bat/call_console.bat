@@ -52,7 +52,7 @@ if %1 == 1920 (
 	set EXCEL_FILENAME=%2\console\call2.xlsm
 )
 
-rem START "%EXCEL_EXE%" "%EXCEL_FILENAME"
+START "%EXCEL_EXE%" %EXCEL_FILENAME%
 echo %EXCEL_FILENAME%
 
 pause
