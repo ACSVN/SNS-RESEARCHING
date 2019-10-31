@@ -24,7 +24,7 @@ Twitter_id <- as.character(args[2])
 #client_name <- paste0(client_name,"Report")
 
 ##-----------------------Page 1
-pptxpath <- paste0(getwd(),"/output/", "Twitter-PPT.pptx")
+pptxpath <- paste0(getwd(),"/output/",Twitter_id, "/Twitter-PPT.pptx")
 mypptx <- read_pptx(pptxpath)
 mypptx <- on_slide( mypptx, index = 1)
 slide_summary(mypptx, index = 1)
