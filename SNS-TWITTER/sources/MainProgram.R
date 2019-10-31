@@ -41,11 +41,11 @@ get_token()
 func_mainProgram <- function(excelFileName, pptFileName, username, numberRecord, sheetName){
   
   ## Copy powerpoint file from input folder to output folder
-  # inPowerPointFile <- paste0(getwd(),"/input/", pptFileName)
-  # outFolder <- paste0(getwd(),"/output")
-  # print(inPowerPointFile)
-  # print(outFolder)
-  # func_copyFile2Folder(inPowerPointFile, outFolder)
+  inPowerPointFile <- paste0(getwd(),"/input/", pptFileName)
+  outFolder <- paste0(getwd(),"/output")
+  print(inPowerPointFile)
+  print(outFolder)
+  func_copyFile2Folder(inPowerPointFile, outFolder)
   
   func_write2ExcelTweet(excelFileName, func_getUserTweet_30Days_premium(username, numberRecord), sheetName)
   
