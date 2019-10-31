@@ -16,10 +16,10 @@ library(stringr)
 ##
 func_setPremiumAccount <- function(){
   appname <- "ADDIXCS-Twitter"
-  consumer_key <- "3a1N6xOBowUuF3ZWlErboyGLo"
-  consumer_secret <-"sZLiof7XdT8BY3HixQWpp2TQm737VKJcvdxQDovVZPH9Fmw9SB"
-  access_token <- "1181201713602027522-bpCt556WTeMhsYCwGLLlATHJbhdpvI"
-  access_secret <- "UljO4r6L9T22yxKIrDfVB35lNr7wJCXuAu49Noe1b3n5s"
+  consumer_key <- ""
+  consumer_secret <-""
+  access_token <- ""
+  access_secret <- ""
   
   twitter_token <- create_token(app = appname,
                                 consumer_key = consumer_key,
@@ -96,8 +96,8 @@ func_getTokenAccount <- function(tokenName){
 func_getUserTweet_30Days_premium <- function(username, numberRecord){
   infoSearch = str_c("from:", username)
   
-  # gmtDate <- as.POSIXlt(Sys.time(), "GMT") # the current time in UTC
-  gmtDate <- as.POSIXlt(Sys.time(), tz="Japan") # the current time in JST
+  gmtDate <- as.POSIXlt(Sys.time(), "GMT") # the current time in UTC
+  # gmtDate <- as.POSIXlt(Sys.time(), tz="Japan") # the current time in JST
   todate <- format(gmtDate, "%Y%m%d%H%M")
   
   no = as.numeric(substr(todate, 11, 12)) - 1
@@ -113,7 +113,7 @@ func_getUserTweet_30Days_premium <- function(username, numberRecord){
                            toDate = mydate, env_name = "DevSearch30Days")
   
   userData <- data.frame(
-    userInfo$created_at[1:numberRecord],      # Created date
+    as.POSIXlt(userInfo$created_at[1:numberRecord], tz="Japan"),      # Created date
     unlist(userInfo$media_url, use.names=FALSE)[1:numberRecord],       # Creative
     userInfo$text[1:numberRecord],            # Content
     userInfo$favorite_count[1:numberRecord],  # Like count
