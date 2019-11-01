@@ -1,4 +1,4 @@
-
+@echo off
 
 
 rem ===== Excel (call.xlsm, call2.xlsm)からの引数 =====
@@ -18,11 +18,11 @@ taskkill /F /IM EXCEL.EXE
 
 
 rem ===== 「MainProgram.R」でTwitterデータの取得 =====
-call :func_mainprogram_r %1 %2 %PROJECT_DIR% 
+call :func_mainprogram_r %1 %2 %PROJECT_DIR%
 
 
 rem ===== Twitterアカウントのスクリーンショットを撮る =====
-call :func_take_capture %2 %PROJECT_DIR% 
+call :func_take_capture %2 %PROJECT_DIR%
 
 
 rem ===== Twitterアカウント画像の貼り付け =====
