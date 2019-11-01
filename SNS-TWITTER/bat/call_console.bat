@@ -41,8 +41,14 @@ exit
 
 
 
-rem ===== Excelコンソールの分岐 =====
+
+
+rem ==================== SUBROUTINE ====================
+
 :func_excel_console
+
+rem %1 ... SCREEN_WIDTH
+rem %2 ... PROJECT_DIR
 
 set EXCEL_EXE=C:\Program Files\Microsoft Office\Office14\EXCEL.EXE
 
@@ -55,6 +61,5 @@ if %1 == 1920 (
 START "%EXCEL_EXE%" %EXCEL_FILENAME%
 echo %EXCEL_FILENAME%
 
-pause
 exit /B
 
