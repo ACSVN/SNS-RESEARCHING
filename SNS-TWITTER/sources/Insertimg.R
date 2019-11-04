@@ -6,7 +6,7 @@
 # install.packages("stringr")
 
 library(officer)
-library(magrittr) 
+library(magrittr)
 library(flextable)
 library(ggplot2)
 library(imager)
@@ -15,9 +15,9 @@ library(stringr)
 
 
 # ---------- set project directory (change wd from "/source/*" to "/*") ---------- #
-
 setwd(str_replace(getwd(), "/sources", ""))
-
+setwd(str_replace(getwd(), "/bat", ""))
+# getwd()
 
 
 # ---------- set argument from bat file ---------- #
@@ -26,9 +26,6 @@ args <- commandArgs(trailingOnly = TRUE)
 client_name <- as.character(args[1])
 Twitter_id <- as.character(args[2])
 screen_switch <- as.character(args[3])
-# client_name <- "test-client"
-# Twitter_id <- "test"
-# screen_switch <- 1
 
 
 
@@ -40,6 +37,7 @@ func_trimImage <- function(loadFile, saveFile, topLeft_x, topLeft_y, bottomRight
   img <- imsub(img, x > topLeft_x, y > topLeft_y)
   save.image(img, file = saveFile)
 }
+
 
 cap_png <- str_c(getwd(), "/images/Cap.png")
 top_png <- str_c(getwd(), "/images/top.png")
@@ -62,6 +60,7 @@ func_pasteImage <- function(pptObj, slideNum, Image, h, w, l, t, r) {
   pptObj <- on_slide(pptObj, index = slideNum)
   pptObj <- ph_with_img_at(x = pptObj, src = Image, height = h, width = w, left = l, top = t, rot = r)
 }
+
 
 ppt_file <- str_c(getwd(), "/output/", Twitter_id, "/Twitter-PPT.pptx")
 mypptx <- read_pptx(ppt_file)
