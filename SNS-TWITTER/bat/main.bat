@@ -10,7 +10,6 @@ rem %3 ... SCREEN_SWITCH (Width:1920=1, Width:Others=2, Error=0)
 rem ===== 一つ前のディレクトリ名を取得 =====
 pushd %~dp0..
 set PROJECT_DIR=%CD%
-popd
 
 
 rem ===== Excelコンソールを閉じる =====
@@ -72,7 +71,7 @@ rem %2 ... PROJECT_DIR
 start https://mobile.twitter.com/%1
 del %2\images\Cap.png
 del %2\images\top.png
-cd %CD%
+cd %2\bat
 timeout /T 20 /nobreak >NUL
 powershell -NoProfile -ExecutionPolicy Unrestricted .\scrshotPS.ps1
 
