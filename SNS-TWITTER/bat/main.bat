@@ -13,6 +13,7 @@ set PROJECT_DIR=%CD%
 
 
 rem ===== Excelコンソールを閉じる =====
+echo Closing Excel console...
 taskkill /F /IM EXCEL.EXE
 
 
@@ -54,9 +55,9 @@ echo AccountName : %2
 echo ******************************
 echo:
 
-"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" %3\sources\MainProgram.R %1 %2
 echo Running %3\sources\MainProgram.R. Please wait...
 echo:
+"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" %3\sources\MainProgram.R %1 %2
 
 exit /B
 
@@ -69,14 +70,15 @@ exit /B
 rem %1 ... Twitterアカウント名
 rem %2 ... PROJECT_DIR
 
+
 start https://mobile.twitter.com/%1
 del %2\images\Cap.png
 del %2\images\top.png
 cd %2\bat
-timeout /T 20 /nobreak >NUL
+timeout /T 10 /nobreak >NUL
 powershell -NoProfile -ExecutionPolicy Unrestricted .\scrshotPS.ps1
-
-timeout /T 35 /nobreak >NUL
+echo Taking capture of this screen. Please wait...
+timeout /T 5 /nobreak >NUL
 taskkill /F /IM chrome.exe /T
 
 exit /B
@@ -92,8 +94,9 @@ rem %2 ... Twitterアカウント名
 rem %3 ... SCREEN_SWITCH
 rem %4 ... PROJECT_DIR
 
-"C:\Program Files\R\R-3.6.1\bin\rscript.exe" %4\sources\insertimg1.r %1 %2 %3
-echo Running %4\sources\insertimg1.r. Please wait...
+echo Running %4\sources\Insertimg.R. Please wait...
 echo:
+"C:\Program Files\R\R-3.6.1\bin\Rscript.exe" %4\sources\Insertimg.R %1 %2 %3
+
 
 exit /B
