@@ -34,3 +34,9 @@ vignettes/*.pdf
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
+
+# image (Nose added)
+images/*
+
+# Deliverables in output folder (Nose added)
+output/*
