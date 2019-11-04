@@ -31,6 +31,7 @@ call :func_paste_img_twitter %1 %2 %3 %PROJECT_DIR%
 rem ===== 最後にoutputフォルダを開いて終了 =====
 start %PROJECT_DIR%\output
 
+pause
 exit
 
 
@@ -91,18 +92,8 @@ rem %2 ... Twitterアカウント名
 rem %3 ... SCREEN_SWITCH
 rem %4 ... PROJECT_DIR
 
-if %3==1 (
-	set INSERT_IMG=insertimg1.r
-) else if %3==2 (
-	set INSERT_IMG=insertimg2.r
-) else (
-	echo Error Occured.
-	pause
-	exit
-)
-
-"C:\Program Files\R\R-3.6.1\bin\rscript.exe" %4\sources\%INSERT_IMG% %1 %2
-echo Running %4\%INSERT_IMG%. Please wait...
+"C:\Program Files\R\R-3.6.1\bin\rscript.exe" %4\sources\insertimg1.r %1 %2 %3
+echo Running %4\sources\insertimg1.r. Please wait...
 echo:
 
 exit /B
