@@ -1,0 +1,203 @@
+Sub Main()
+
+    ' Created by Akira Nose, 10/10/2019
+    ' Edited by AKira Nose, 11/05/2019
+    ' Keyboard Shortcut: Ctrl+m
+    
+    Call Excel_Preparation("WORST")
+    Call Excel_Preparation("BEST")
+    
+    Call Excel_Sort("BEST", 2)
+    Call Excel_Sort("WORST", 1)
+    
+    Call Powerpoint_Copy
+    
+    Call Excel_Save_Close
+    
+End Sub
+
+
+
+Sub Powerpoint_Copy()
+
+    Dim ppApp As New powerpoint.Application
+    ppApp.Visible = True
+    Dim ppPrs As powerpoint.Presentation
+    Dim ppSlide As slide
+    Dim ppShape As powerpoint.shape
+    Set ppPrs = ppApp.Presentations.Open(ThisWorkbook.Path & "\Twitter-PPT.pptx")
+    
+    
+    ' ===== Copy Table for Powerpoint file ===== '
+    Dim ws As Worksheet
+    
+    Set ws = ThisWorkbook.Worksheets("BEST")
+    Call copyTable2PPT(ws, "A2:N12", ppPrs, 4, 3.78, 1.96, 23.53)
+    Set ws = ThisWorkbook.Worksheets("WORST")
+    Call copyTable2PPT(ws, "A2:N12", ppPrs, 5, 3.78, 1.96, 23.53)
+    
+    
+    ' ===== Copy Chart for Powerpoint file ===== '
+    Dim s As Object
+    Set s = ThisWorkbook.Worksheets("Graph")
+    
+    Call copyChart2PPT(s, "aveEng-Day", ppPrs, 6, 3.01, 2.5, 13.5)
+    Call copyChart2PPT(s, "postNum-Day", ppPrs, 6, 10.7, 2.5, 13.5)
+    Call copyChart2PPT(s, "aveEng-Time", ppPrs, 6, 3.01, 17.5, 13.5)
+    Call copyChart2PPT(s, "postNum-Time", ppPrs, 6, 10.7, 17.5, 13.5)
+    
+    Call copyChart2PPT(s, "medEng-Day", ppPrs, 7, 3.01, 2.5, 13.5)
+    Call copyChart2PPT(s, "postNum-Day", ppPrs, 7, 10.7, 2.5, 13.5)
+    Call copyChart2PPT(s, "medEng-Time", ppPrs, 7, 3.01, 17.5, 13.5)
+    Call copyChart2PPT(s, "postNum-Time", ppPrs, 7, 10.7, 17.5, 13.5)
+    
+    
+    
+    ' ===== Powerpoint Save & close ===== '
+    ppPrs.Save
+    ppPrs.Close
+    
+    ppApp.Quit
+    
+    Set ppApp = Nothing
+    
+End Sub
+
+
+
+
+
+
+
+Function Excel_Preparation(strSheetName As String)
+    
+    Application.DisplayAlerts = False
+    
+    If SheetExistCheck(strSheetName) Then
+        Sheets(strSheetName).Delete
+    End If
+
+    Worksheets("Twitter").Select
+    Worksheets("Twitter").Copy After:=Worksheets(2)
+    Worksheets("Twitter (2)").Select
+    Worksheets("Twitter (2)").Name = strSheetName
+    
+End Function
+
+
+
+Function Excel_Sort(strSheetName As String, intOrder As Integer)
+
+    Worksheets(strSheetName).Activate
+    
+    Call DeleteEmptyLines
+    
+    With Worksheets(strSheetName).Sort
+        .SortFields.Clear
+        .SortFields.Add2 Key:=range("I3"), Order:=intOrder
+        .SetRange range("A3:N52")
+        .Header = xlNo
+        .Apply
+    End With
+    
+End Function
+
+
+
+Function Excel_Save_Close()
+    
+    Application.Quit
+    ThisWorkbook.Close SaveChanges:=True
+    
+End Function
+
+
+
+Function SheetExistCheck(strSheetName As String)
+
+    Dim blnFileExists As Boolean
+    Dim objWorksheet As Worksheet
+    
+    blnFileExists = False
+    
+    For Each objWorksheet In ThisWorkbook.Worksheets
+        If objWorksheet.Name = strSheetName Then
+            blnFileExists = True
+            Exit For
+        End If
+    Next
+    
+    SheetExistCheck = blnFileExists
+
+End Function
+
+
+
+Function DeleteEmptyLines()
+    
+    Dim Lines As Long
+    Dim EmptyLines As range
+    Dim r As Long
+
+    Lines = Cells(Rows.Count, 1).End(xlUp).Row
+    
+    With ActiveSheet
+        For r = 2 To Lines
+        If IsEmpty(Cells(r, 2).Value) Then
+            If EmptyLines Is Nothing Then
+                Set EmptyLines = .Rows(r).EntireRow
+            Else
+                Set EmptyLines = Union(EmptyLines, .Rows(r).EntireRow)
+            End If
+        End If
+        Next r
+    End With
+
+    If Not EmptyLines Is Nothing Then
+        EmptyLines.Delete
+    End If
+    
+End Function
+
+
+
+Function copyTable2PPT(wsObj As Object, strRange As String, ppPrs As powerpoint.Presentation, slideNum As Integer, T As Single, L As Single, W As Single)
+    
+    Dim ppSlide As slide
+    Dim ppShape As powerpoint.shape
+    
+    With wsObj
+        .range(strRange).Copy
+        
+        Set ppSlide = ppPrs.Slides(slideNum)
+            ppSlide.Shapes.PasteSpecial DataType:=ppPasteEnhancedMetafile, Link:=msoFalse
+        Set ppShape = ppSlide.Shapes(ppSlide.Shapes.Count)
+            ppShape.Top = Application.CentimetersToPoints(T)
+            ppShape.Left = Application.CentimetersToPoints(L)
+            ppShape.LockAspectRatio = msoTrue
+            ppShape.Width = Application.CentimetersToPoints(W)
+            
+        Application.CutCopyMode = False
+        
+    End With
+    
+End Function
+
+
+
+Function copyChart2PPT(sheetObj As Object, chartName As String, ppPrs As powerpoint.Presentation, slideNum As Integer, T As Single, L As Single, W As Single)
+    
+    Dim ppSlide As slide
+    Dim ppShape As powerpoint.shape
+    
+    sheetObj.ChartObjects(chartName).Chart.CopyPicture xlScreen, xlPicture
+    
+    Set ppSlide = ppPrs.Slides(slideNum)
+        ppSlide.Shapes.PasteSpecial DataType:=ppPasteEnhancedMetafile, Link:=msoFalse
+    Set ppShape = ppSlide.Shapes(ppSlide.Shapes.Count)
+        ppShape.Top = Application.CentimetersToPoints(T)
+        ppShape.Left = Application.CentimetersToPoints(L)
+        ppShape.LockAspectRatio = msoTrue
+        ppShape.Width = Application.CentimetersToPoints(W)
+    
+End Function
