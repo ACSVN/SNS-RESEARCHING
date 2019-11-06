@@ -1,4 +1,7 @@
-$path = "C:\SNS-TWITTER\images\"                     # 出力先
+$strPath = (Convert-Path ..)
+
+#$path = "C:\SNS-TWITTER\images\"                     # 出力先
+$Path = $strPath + "\images\"
 $file = "Cap.png"             # {0:000} 0番目の引数を3桁の0埋め数字とする。
 Add-Type -A System.Windows.Forms      # このセッションに型を追加。
 [Windows.Forms.Screen]::PrimaryScreen.Bounds |                   # ディスプレイサイズを取得し、

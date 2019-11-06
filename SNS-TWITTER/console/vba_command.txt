@@ -1,0 +1,57 @@
+Sub start()
+    
+    Dim thisbookFolder As String
+    Dim batFileName As String
+    Dim batArgument As String
+    Dim batCommand As String
+    
+    thisbookFolder = "console"
+    batFileName = "bat\main.bat"
+    
+    batArgument = " " & Cells(1, 2).Value & " " & Cells(2, 2).Value & " " & screenSwitch()
+    batCommand = batFilePath(thisbookFolder, batFileName) & batArgument
+    
+    MsgBox batCommand
+    
+    Call shellObjectRun(batCommand)
+
+End Sub
+
+
+
+Function batFilePath(ByVal thisbookFolder As String, ByVal batFileName As String) As String
+    
+    Dim dirPath As String
+    dirPath = Application.ThisWorkbook.Path
+    
+    batFilePath = Replace(dirPath, thisbookFolder, batFileName)
+    
+End Function
+
+
+
+Function screenSwitch() As String
+    
+    Dim thisbookName As String
+    thisbookName = Application.ThisWorkbook.Name
+    
+    If thisbookName = "call.xlsm" Then
+        screenSwitch = "1"
+    ElseIf thisbookName = "call2.xlsm" Then
+        screenSwitch = "2"
+    Else
+        screenSwitch = "0"
+    End If
+
+End Function
+
+
+
+Function shellObjectRun(ByVal batCommand As String)
+    
+    Dim shellObject As Object
+    Set shellObject = CreateObject("WScript.Shell")
+    
+    shellObject.Run batCommand, 1, True
+    
+End Function
